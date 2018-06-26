@@ -13,11 +13,20 @@ import android.view.View;
 import com.test.butterknife.BindView;
 import com.test.butterknife.ContentView;
 import com.test.butterknife.OnClick;
+import com.test.dagger.DaggerMainComponent;
+import com.test.dagger.MainComponent;
+import com.test.dagger.MainModule;
+import com.test.dagger.Person;
+
+import javax.inject.Inject;
 
 @ContentView(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar mToolBar;
+
+    @Inject
+    Person person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        MainComponent component = DaggerMainComponent.builder()
+                .mainModule(new MainModule()).build();
+        component.inject(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener( view -> {
