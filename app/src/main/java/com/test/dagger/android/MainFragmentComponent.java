@@ -4,7 +4,7 @@ import com.test.mydaggerapplication.MainFragment;
 
 import dagger.Subcomponent;
 
-@MainActivityScope
+@MainFragmentScope
 @Subcomponent
 public interface MainFragmentComponent {
     void inject(MainFragment mainFragment);

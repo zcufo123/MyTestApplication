@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         PersonComponent component = DaggerPersonComponent.builder()
                 .contextComponent(contextComponent)
-                .mainModule(new PersonModule()).build();
+                .personModule(new PersonModule()).build();
         component.inject(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

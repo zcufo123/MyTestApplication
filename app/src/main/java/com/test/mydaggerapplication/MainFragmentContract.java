@@ -4,7 +4,7 @@ import com.test.dagger.android.UserRepository;
 
 import javax.inject.Inject;
 
-public class MainFragmentContact {
+public class MainFragmentContract {
     public interface View {
         void setUserName(String name);
 

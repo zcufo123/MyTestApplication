@@ -12,10 +12,10 @@ import com.test.mytestapplication.R;
 
 import javax.inject.Inject;
 
-public class MainFragment extends Fragment implements MainFragmentContact.View {
+public class MainFragment extends Fragment implements MainFragmentContract.View {
 
     @Inject
-    MainFragmentContact.Presenter mainPresenter;
+    MainFragmentContract.Presenter mainPresenter;
     @Inject
     ToastUtil toastUtil;
 

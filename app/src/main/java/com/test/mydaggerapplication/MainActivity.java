@@ -3,6 +3,7 @@ package com.test.mydaggerapplication;
 import android.os.Bundle;
 
 import com.test.dagger.android.BaseActivity;
+import com.test.dagger.android.DaggerMainComponent;
 import com.test.dagger.android.MainComponent;
 import com.test.dagger.android.MainModule;
 import com.test.mytestapplication.R;
