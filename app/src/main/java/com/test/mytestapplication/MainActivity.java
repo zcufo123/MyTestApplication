@@ -13,10 +13,15 @@ import android.view.View;
 import com.test.butterknife.BindView;
 import com.test.butterknife.ContentView;
 import com.test.butterknife.OnClick;
-import com.test.dagger.DaggerMainComponent;
-import com.test.dagger.MainComponent;
-import com.test.dagger.MainModule;
-import com.test.dagger.Person;
+import com.test.dagger.sample.ContextComponent;
+import com.test.dagger.sample.ContextModule;
+import com.test.dagger.sample.DaggerContextComponent;
+import com.test.dagger.sample.DaggerPersonComponent;
+import com.test.dagger.sample.PersonComponent;
+import com.test.dagger.sample.PersonModule;
+import com.test.dagger.sample.Person;
+import com.test.dagger.sample.PersonWithContext;
+import com.test.dagger.sample.PersonWithName;
 
 import javax.inject.Inject;
 
@@ -25,8 +30,13 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar mToolBar;
 
+    @PersonWithContext
     @Inject
-    Person person;
+    Person person1;
+
+    @PersonWithName
+    @Inject
+    Person person2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +45,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        MainComponent component = DaggerMainComponent.builder()
-                .mainModule(new MainModule()).build();
+        ContextComponent contextComponent = DaggerContextComponent.builder()
+                .contextModule(new ContextModule(this))
+                .build();
+        PersonComponent component = DaggerPersonComponent.builder()
+                .contextComponent(contextComponent)
+                .mainModule(new PersonModule()).build();
         component.inject(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
