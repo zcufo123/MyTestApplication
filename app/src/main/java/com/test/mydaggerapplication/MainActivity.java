@@ -15,13 +15,15 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.dagger_activity_main);
 
         mainComponent = DaggerMainComponent.builder()
                 .activityComponent(getActivityComponent())
                 .mainModule(new MainModule())
                 .build();
         mainComponent.inject(this);
+
+        getFragmentManager().beginTransaction().add(R.id.fragment_container, new MainFragment(), "main").commit();
     }
 
     public MainComponent getMainComponent() {
