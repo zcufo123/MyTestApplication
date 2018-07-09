@@ -1,5 +1,7 @@
 package com.test.rxAndroid;
 
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -16,13 +18,38 @@ public class RxExample {
     private static final String TAG = "RxAndroidSamples";
 
     private final static CompositeDisposable disposables = new CompositeDisposable();
+    private final static HandlerThread handlerThread = new HandlerThread("RxAndroidSamples HandlerThread");
 
-    public static void run() {
+    public static void run1() {
         disposables.add(sampleObservable()
                 // Run on a background thread
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.newThread())
                 // Be notified on the main thread
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<String>() {
+                    @Override public void onComplete() {
+                        Log.d(TAG, "onComplete(): " + Thread.currentThread());
+                    }
+
+                    @Override public void onError(Throwable e) {
+                        Log.e(TAG, "onError(): " + Thread.currentThread(), e);
+                    }
+
+                    @Override public void onNext(String string) {
+                        Log.d(TAG, "onNext(" + string + "): " + Thread.currentThread()) ;
+                    }
+                }));
+    }
+
+    public static void run() {
+        if (!handlerThread.isAlive()) {
+            handlerThread.start();
+        }
+        disposables.add(sampleObservable()
+                // Run on a background thread
+                .subscribeOn(Schedulers.newThread())
+                // Be notified on the main thread
+                .observeOn(AndroidSchedulers.from(handlerThread.getLooper()))
                 .subscribeWith(new DisposableObserver<String>() {
                     @Override public void onComplete() {
                         Log.d(TAG, "onComplete(): " + Thread.currentThread());
