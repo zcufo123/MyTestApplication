@@ -2,7 +2,6 @@ package com.test.dagger.sample;
 
 import android.content.Context;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
