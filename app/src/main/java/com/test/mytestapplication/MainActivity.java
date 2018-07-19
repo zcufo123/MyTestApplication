@@ -22,7 +22,6 @@ import com.test.dagger.sample.PersonModule;
 import com.test.dagger.sample.Person;
 import com.test.dagger.sample.PersonWithContext;
 import com.test.dagger.sample.PersonWithName;
-import com.test.rxAndroid.RxExample;
 
 import javax.inject.Inject;
 
@@ -58,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener( view -> {
-            Log.d(TAG, "UI Thread is " + Thread.currentThread());
-            RxExample.run();
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         });
