@@ -39,7 +39,7 @@ public class RxSimpleExample {
     private static final String TAG = "RxSimpleExample";
 
     public static void run() {
-        runFlowable();
+        runSimpleExample();
     }
 
     private static class Person {
