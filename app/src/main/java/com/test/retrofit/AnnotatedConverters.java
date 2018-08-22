@@ -39,7 +39,7 @@ import retrofit2.http.GET;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-final class AnnotatedConverters {
+public final class AnnotatedConverters {
   public static final class AnnotatedConverterFactory extends Converter.Factory {
     private final Map<Class<? extends Annotation>, Converter.Factory> factories;
 

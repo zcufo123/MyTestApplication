@@ -1,4 +1,4 @@
-	/*
+/*
  * Copyright (C) 2016 Square, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -89,7 +89,7 @@ public final class Crawler {
     });
   }
 
-  public static void run(String... args) throws Exception {
+  public static void run() {
     Dispatcher dispatcher = new Dispatcher(Executors.newFixedThreadPool(20));
     dispatcher.setMaxRequests(20);
     dispatcher.setMaxRequestsPerHost(1);
@@ -108,7 +108,13 @@ public final class Crawler {
     PageService pageService = retrofit.create(PageService.class);
 
     Crawler crawler = new Crawler(pageService);
-    crawler.crawlPage(HttpUrl.get(args[0]));
+    HttpUrl url = new HttpUrl.Builder()
+            .scheme("https")
+            .host("www.google.com")
+            .addPathSegment("search")
+            .addQueryParameter("q", "polar bears")
+            .build();
+    crawler.crawlPage(url);
   }
 
   interface PageService {
